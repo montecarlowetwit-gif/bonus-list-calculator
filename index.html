@@ -1,203 +1,77 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Калькулятор премии 2.0</title>
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bonus Calculator 3.0</title>
 <style>
-body{margin:0;background:#f5f6f8;font-family:-apple-system,BlinkMacSystemFont,Arial}
-.header{position:sticky;top:0;background:white;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.08);z-index:10}
+body{margin:0;font-family:-apple-system,Arial;background:#f3f5f7}
+.top{padding:18px;background:#111827;color:#fff;position:sticky;top:0;z-index:5}
 .total{font-size:34px;font-weight:700}
-.card{background:white;margin:10px;border-radius:16px;padding:14px;box-shadow:0 1px 5px rgba(0,0,0,.05)}
-.name{font-weight:700}
-.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.btn{width:38px;height:38px;border:none;border-radius:10px;font-size:20px}
-.qty{min-width:40px;text-align:center;font-size:18px}
-input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin:6px 0}
-.small{color:#666}
-</style>
-</head>
-<body>
-<div class="header">
+.panel{padding:12px;background:white;margin:10px;border-radius:16px}
+input,select{width:100%;padding:12px;margin:6px 0;border:1px solid #ddd;border-radius:10px;box-sizing:border-box}
+.filters{display:flex;gap:8px;overflow:auto;padding:0 10px}
+.chip{background:white;border:none;padding:10px 14px;border-radius:20px}
+.card{background:white;margin:10px;border-radius:16px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.hi{border-left:5px solid #22c55e}
+.row{display:flex;justify-content:space-between;align-items:center}
+.btn{width:42px;height:42px;border:none;border-radius:10px;font-size:22px}
+.qty{font-size:22px;font-weight:700}
+</style></head><body>
+<div class="top">
 <div class="total" id="total">0 ₽</div>
-<input id="employee" placeholder="Имя сотрудника">
-<select id="week">
-<option>Неделя 1</option>
-<option>Неделя 2</option>
-<option>Неделя 3</option>
-<option>Неделя 4</option>
-<option>Неделя 5</option>
-</select>
-<input id="search" placeholder="Поиск модели">
+<div id="stats">0 шт</div>
 </div>
 
+<div class="panel">
+<input id="employee" placeholder="Имя сотрудника">
+<select id="week"><option>Неделя 1</option><option>Неделя 2</option><option>Неделя 3</option><option>Неделя 4</option><option>Неделя 5</option></select>
+<input id="search" placeholder="🔍 Поиск модели">
+</div>
+
+<div class="filters" id="filters"></div>
 <div id="list"></div>
 
 <script>
-const products=[
-{name:'Mate X7', bonus:2239.99},
-{name:'Mate X7', bonus:2239.99},
-{name:'Mate X7', bonus:2239.99},
-{name:'HUAWEI Mate XT', bonus:2029.99},
-{name:'HUAWEI Mate XT', bonus:2029.99},
-{name:'16/512GB Black', bonus:1259.99},
-{name:'16/512GB Gold', bonus:1259.99},
-{name:'16/512GB Green', bonus:1259.99},
-{name:'PDA Huawei Pura 80 Ultra 16/512 Bl', bonus:1000.99},
-{name:'PDA Huawei Pura 80 Ultra 16/512 Gl', bonus:1000.99},
-{name:'HUAWEI MateBook GT 14', bonus:945.0},
-{name:'MatePad Pro 13.2 papermatte WIFI 12+512G Premium gold inbox keyboard', bonus:895.99},
-{name:'HUAWEI MateBook GT 14', bonus:840.0},
-{name:'MatePad Pro 13.2 WIFI 12+256G Black inbox keyboard', bonus:818.99},
-{name:' MatePad  Mini 12+256 AG (Paper Matte)', bonus:811.99},
-{name:'MatePad Mini 12+256 AG (Paper Matte)', bonus:811.99},
-{name:'MatePad Mini  8+256 CG ', bonus:713.99},
-{name:'HUAWEI MateBook GT 14', bonus:700.0},
-{name:'MatePad Pro 12.2  12+512 wifi Green Papermatte inbox keyboard', bonus:657.99},
-{name:'MatePad Pro 12.2  12+512 wifi Black Papermatte inbox keyboard', bonus:657.99},
-{name:'PDA Huawei Pura 80 Pro 12/512 Bl', bonus:643.99},
-{name:'PDA Huawei Pura 80 Pro 12/512 R', bonus:643.99},
-{name:'PDA Huawei Pura 80 Pro 12/512 Wh', bonus:643.99},
-{name:'HUAWEI nova 15 Max  8+256', bonus:577.48},
-{name:'HUAWEI nova 15 Max  8+256', bonus:577.48},
-{name:'HUAWEI nova 15 Max  8+256', bonus:577.48},
-{name:'MatePad Pro 12.2  12+256 wifi Black  inbox keyboard', bonus:573.99},
-{name:'HUAWEI WATCH Ultimate 2', bonus:569.79},
-{name:'HUAWEI WATCH Ultimate 2 March-B39', bonus:569.79},
-{name:'Watch 5 42mm', bonus:462.69},
-{name:'HUAWEI WATCH Ultimate 2', bonus:462.69},
-{name:'PDA Huawei Pura 80 12/256GB Bl ', bonus:433.99},
-{name:'PDA Huawei Pura 80 12/256GB Gld ', bonus:433.99},
-{name:'PDA Huawei Pura 80 12/256GB Wh ', bonus:433.99},
-{name:'HUAWEI nova 15 Pro', bonus:349.99},
-{name:'HUAWEI nova 15 Pro', bonus:349.99},
-{name:'HUAWEI nova 15 Pro', bonus:349.99},
-{name:'HUAWEI nova 15 Pro', bonus:349.99},
-{name:'Watch 5 42mm', bonus:320.59},
-{name:'Watch 5 46mm', bonus:320.59},
-{name:'Watch 5 46mm', bonus:320.59},
-{name:'HUAWEI nova 15 Pro', bonus:314.99},
-{name:'HUAWEI nova 15 Pro', bonus:314.99},
-{name:'HUAWEI nova 15 Pro', bonus:314.99},
-{name:'HUAWEI nova 15 Pro', bonus:314.99},
-{name:'HUAWEI nova 15', bonus:293.99},
-{name:'HUAWEI nova 15', bonus:293.99},
-{name:'HUAWEI nova 15', bonus:293.99},
-{name:'Watch 5 42mm', bonus:284.89},
-{name:'Watch 5 42mm', bonus:284.89},
-{name:'Watch 5 46mm', bonus:284.89},
-{name:'WATCH GT 6 Titanium Strap', bonus:284.89},
-{name:'HUAWEI WATCH FIT 5 Pro Black Fluoroelastomer Strap', bonus:272.99},
-{name:'HUAWEI WATCH FIT 5 Pro White Fluoroelastomer Strap', bonus:272.99},
-{name:'HUAWEI WATCH FIT 5 Pro Gradient Orange Nylon Strap', bonus:272.99},
-{name:'HUAWEI nova 15', bonus:258.99},
-{name:'HUAWEI nova 15', bonus:258.99},
-{name:'HUAWEI nova 15', bonus:258.99},
-{name:'Chitu-B19F', bonus:223.99},
-{name:'Chitu-B19W', bonus:223.99},
-{name:'Chitu-B19FB', bonus:223.99},
-{name:'Chitu-B19D', bonus:223.99},
-{name:'WATCH GT 6 Black Fluoroelastomer Strap', bonus:213.49},
-{name:'WATCH GT 6 Brown Woven Strap (MKT Color)', bonus:213.49},
-{name:'Watch D 2 Black Fluoroelastomer', bonus:213.49},
-{name:'Watch D 2 White Composite', bonus:213.49},
-{name:'WATCH D2\nBlue Composite Leather Strap', bonus:213.49},
-{name:'DoraP-L10', bonus:209.99},
-{name:'DoraP-L10', bonus:209.99},
-{name:'HUAWEI WATCH FIT 5 Black Fluoroelastomer Strap', bonus:199.49},
-{name:'HUAWEI WATCH FIT 5 White Fluoroelastomer Strap', bonus:199.49},
-{name:'HUAWEI WATCH FIT 5 Purple Fluoroelastomer Strap', bonus:199.49},
-{name:'HUAWEI WATCH FIT 5 Green Fluoroelastomer Strap', bonus:199.49},
-{name:'HUAWEI WATCH FIT 5 Silver Green-Grey Nylon Strap', bonus:199.49},
-{name:'MatePad 12X 12+256G papermatte +Keyboard', bonus:196.0},
-{name:'MatePad 12X 12+256G papermatte +Keyboard', bonus:196.0},
-{name:'MatePad 12X 12+256G +Keyboard', bonus:178.5},
-{name:'WATCH GT 6 Gold Milanese Strap', bonus:178.49},
-{name:'HUAWEI WiFi Mesh X3pro Suite', bonus:174.99},
-{name:'WATCH GT 6 Black Fluoroelastomer Strap', bonus:163.79},
-{name:'WATCH GT 6 Grey Composite Leather Strap', bonus:163.79},
-{name:'WATCH GT 6 Green Woven Strap （MKT Color）', bonus:163.79},
-{name:'WATCH GT 6 Purple Fluoroelastomer Strap (MKT Color)', bonus:163.79},
-{name:'WATCH GT 6 White Composite Leather Strap', bonus:163.79},
-{name:'MatePad 11.5 S PaperMatte 12+256 wifi + keyboard 2026', bonus:161.0},
-{name:'MatePad 11.5 S PaperMatte 12+256 wifi + keyboard 2026', bonus:161.0},
-{name:'MatePad 11.5S 12+512G papermatte', bonus:154.0},
-{name:'Dora-L10', bonus:153.99},
-{name:'Dora-L10', bonus:153.99},
-{name:'MatePad 11.5 S 12+256 wifi + keyboard 2026', bonus:143.5},
-{name:'MatePad 11.5 8+256G Papermatte+KB gray', bonus:124.6},
-{name:'MatePad 11.5 8+256G Papermatte+KB violet', bonus:124.6},
-{name:'HUAWEI WiFi Mesh X3pro Suite', bonus:118.99},
-{name:'MatePad 11.5 S PaperMatte 12+512 ', bonus:108.5},
-{name:'MatePad 11.5 8+256G Papermatte', bonus:106.75}
-];
+const data=[{"cat": "Smartphone", "name": "Mate X7", "bonus": 2239.99}, {"cat": "Smartphone", "name": "Mate X7", "bonus": 2239.99}, {"cat": "Smartphone", "name": "Mate X7", "bonus": 2239.99}, {"cat": "Smartphone", "name": "HUAWEI Mate XT", "bonus": 2029.99}, {"cat": "Smartphone", "name": "HUAWEI Mate XT", "bonus": 2029.99}, {"cat": "Smartphone", "name": "16/512GB Black", "bonus": 1259.99}, {"cat": "Smartphone", "name": "16/512GB Gold", "bonus": 1259.99}, {"cat": "Smartphone", "name": "16/512GB Green", "bonus": 1259.99}, {"cat": "Smartphone", "name": "PDA Huawei Pura 80 Ultra 16/512 Bl", "bonus": 1000.99}, {"cat": "Smartphone", "name": "PDA Huawei Pura 80 Ultra 16/512 Gl", "bonus": 1000.99}, {"cat": "PC", "name": "HUAWEI MateBook GT 14", "bonus": 945.0}, {"cat": "Tab", "name": "MatePad Pro 13.2 papermatte WIFI 12+512G Premium gold inbox keyboard", "bonus": 895.99}, {"cat": "PC", "name": "HUAWEI MateBook GT 14", "bonus": 840.0}, {"cat": "Tab", "name": "MatePad Pro 13.2 WIFI 12+256G Black inbox keyboard", "bonus": 818.99}, {"cat": "Tab", "name": " MatePad  Mini 12+256 AG (Paper Matte)", "bonus": 811.99}, {"cat": "Tab", "name": "MatePad Mini 12+256 AG (Paper Matte)", "bonus": 811.99}, {"cat": "Tab", "name": "MatePad Mini  8+256 CG ", "bonus": 713.99}, {"cat": "PC", "name": "HUAWEI MateBook GT 14", "bonus": 700.0}, {"cat": "Tab", "name": "MatePad Pro 12.2  12+512 wifi Green Papermatte inbox keyboard", "bonus": 657.99}, {"cat": "Tab", "name": "MatePad Pro 12.2  12+512 wifi Black Papermatte inbox keyboard", "bonus": 657.99}, {"cat": "Smartphone", "name": "PDA Huawei Pura 80 Pro 12/512 Bl", "bonus": 643.99}, {"cat": "Smartphone", "name": "PDA Huawei Pura 80 Pro 12/512 R", "bonus": 643.99}, {"cat": "Smartphone", "name": "PDA Huawei Pura 80 Pro 12/512 Wh", "bonus": 643.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Max  8+256", "bonus": 577.48}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Max  8+256", "bonus": 577.48}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Max  8+256", "bonus": 577.48}, {"cat": "Tab", "name": "MatePad Pro 12.2  12+256 wifi Black  inbox keyboard", "bonus": 573.99}, {"cat": "Wearable", "name": "HUAWEI WATCH Ultimate 2", "bonus": 569.79}, {"cat": "Wearable", "name": "HUAWEI WATCH Ultimate 2 March-B39", "bonus": 569.79}, {"cat": "Wearable", "name": "Watch 5 42mm", "bonus": 462.69}, {"cat": "Wearable", "name": "HUAWEI WATCH Ultimate 2", "bonus": 462.69}, {"cat": "Smartphone", "name": "PDA Huawei Pura 80 12/256GB Bl ", "bonus": 433.99}, {"cat": "Smartphone", "name": "PDA Huawei Pura 80 12/256GB Gld ", "bonus": 433.99}, {"cat": "Smartphone", "name": "PDA Huawei Pura 80 12/256GB Wh ", "bonus": 433.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Pro", "bonus": 349.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Pro", "bonus": 349.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Pro", "bonus": 349.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Pro", "bonus": 349.99}, {"cat": "Wearable", "name": "Watch 5 42mm", "bonus": 320.59}, {"cat": "Wearable", "name": "Watch 5 46mm", "bonus": 320.59}, {"cat": "Wearable", "name": "Watch 5 46mm", "bonus": 320.59}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Pro", "bonus": 314.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Pro", "bonus": 314.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Pro", "bonus": 314.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15 Pro", "bonus": 314.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15", "bonus": 293.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15", "bonus": 293.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15", "bonus": 293.99}, {"cat": "Wearable", "name": "Watch 5 42mm", "bonus": 284.89}, {"cat": "Wearable", "name": "Watch 5 42mm", "bonus": 284.89}, {"cat": "Wearable", "name": "Watch 5 46mm", "bonus": 284.89}, {"cat": "Wearable", "name": "WATCH GT 6 Titanium Strap", "bonus": 284.89}, {"cat": "Wearable", "name": "HUAWEI WATCH FIT 5 Pro Black Fluoroelastomer Strap", "bonus": 272.99}, {"cat": "Wearable", "name": "HUAWEI WATCH FIT 5 Pro White Fluoroelastomer Strap", "bonus": 272.99}, {"cat": "Wearable", "name": "HUAWEI WATCH FIT 5 Pro Gradient Orange Nylon Strap", "bonus": 272.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15", "bonus": 258.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15", "bonus": 258.99}, {"cat": "Smartphone", "name": "HUAWEI nova 15", "bonus": 258.99}, {"cat": "Wearable", "name": "Chitu-B19F", "bonus": 223.99}, {"cat": "Wearable", "name": "Chitu-B19W", "bonus": 223.99}, {"cat": "Wearable", "name": "Chitu-B19FB", "bonus": 223.99}, {"cat": "Wearable", "name": "Chitu-B19D", "bonus": 223.99}, {"cat": "Wearable", "name": "WATCH GT 6 Black Fluoroelastomer Strap", "bonus": 213.49}, {"cat": "Wearable", "name": "WATCH GT 6 Brown Woven Strap (MKT Color)", "bonus": 213.49}, {"cat": "Wearable", "name": "Watch D 2 Black Fluoroelastomer", "bonus": 213.49}, {"cat": "Wearable", "name": "Watch D 2 White Composite", "bonus": 213.49}, {"cat": "Wearable", "name": "WATCH D2\nBlue Composite Leather Strap", "bonus": 213.49}, {"cat": "Wearable", "name": "DoraP-L10", "bonus": 209.99}, {"cat": "Wearable", "name": "DoraP-L10", "bonus": 209.99}, {"cat": "Wearable", "name": "HUAWEI WATCH FIT 5 Black Fluoroelastomer Strap", "bonus": 199.49}, {"cat": "Wearable", "name": "HUAWEI WATCH FIT 5 White Fluoroelastomer Strap", "bonus": 199.49}, {"cat": "Wearable", "name": "HUAWEI WATCH FIT 5 Purple Fluoroelastomer Strap", "bonus": 199.49}, {"cat": "Wearable", "name": "HUAWEI WATCH FIT 5 Green Fluoroelastomer Strap", "bonus": 199.49}, {"cat": "Wearable", "name": "HUAWEI WATCH FIT 5 Silver Green-Grey Nylon Strap", "bonus": 199.49}, {"cat": "Tab", "name": "MatePad 12X 12+256G papermatte +Keyboard", "bonus": 196.0}, {"cat": "Tab", "name": "MatePad 12X 12+256G papermatte +Keyboard", "bonus": 196.0}, {"cat": "Tab", "name": "MatePad 12X 12+256G +Keyboard", "bonus": 178.5}, {"cat": "Wearable", "name": "WATCH GT 6 Gold Milanese Strap", "bonus": 178.49}, {"cat": "Iot", "name": "HUAWEI WiFi Mesh X3pro Suite", "bonus": 174.99}, {"cat": "Wearable", "name": "WATCH GT 6 Black Fluoroelastomer Strap", "bonus": 163.79}, {"cat": "Wearable", "name": "WATCH GT 6 Grey Composite Leather Strap", "bonus": 163.79}, {"cat": "Wearable", "name": "WATCH GT 6 Green Woven Strap （MKT Color）", "bonus": 163.79}, {"cat": "Wearable", "name": "WATCH GT 6 Purple Fluoroelastomer Strap (MKT Color)", "bonus": 163.79}, {"cat": "Wearable", "name": "WATCH GT 6 White Composite Leather Strap", "bonus": 163.79}, {"cat": "Tab", "name": "MatePad 11.5 S PaperMatte 12+256 wifi + keyboard 2026", "bonus": 161.0}, {"cat": "Tab", "name": "MatePad 11.5 S PaperMatte 12+256 wifi + keyboard 2026", "bonus": 161.0}, {"cat": "Tab", "name": "MatePad 11.5S 12+512G papermatte", "bonus": 154.0}, {"cat": "Wearable", "name": "Dora-L10", "bonus": 153.99}, {"cat": "Wearable", "name": "Dora-L10", "bonus": 153.99}, {"cat": "Tab", "name": "MatePad 11.5 S 12+256 wifi + keyboard 2026", "bonus": 143.5}, {"cat": "Tab", "name": "MatePad 11.5 8+256G Papermatte+KB gray", "bonus": 124.6}, {"cat": "Tab", "name": "MatePad 11.5 8+256G Papermatte+KB violet", "bonus": 124.6}, {"cat": "Iot", "name": "HUAWEI WiFi Mesh X3pro Suite", "bonus": 118.99}, {"cat": "Tab", "name": "MatePad 11.5 S PaperMatte 12+512 ", "bonus": 108.5}, {"cat": "Tab", "name": "MatePad 11.5 8+256G Papermatte", "bonus": 106.75}];
+let cat='Все';
+let qtys={};
 
-function key() {
- return "bonus_" + (employee.value||"employee") + "_" + week.value;
-}
+function storageKey(){return 'bonus_'+(employee.value||'user')+'_'+week.value;}
 
-function load(){
- const data=JSON.parse(localStorage.getItem(key())||"{}");
- document.querySelectorAll("[data-id]").forEach(el=>{
-   el.dataset.qty=data[el.dataset.id]||0;
- });
- render();
-}
+function save(){localStorage.setItem(storageKey(),JSON.stringify(qtys));localStorage.setItem('employee',employee.value);}
+function load(){employee.value=localStorage.getItem('employee')||'';qtys=JSON.parse(localStorage.getItem(storageKey())||'{}');render();}
 
-function save(){
- let data={};
- document.querySelectorAll("[data-id]").forEach(el=>data[el.dataset.id]=+el.dataset.qty);
- localStorage.setItem(key(),JSON.stringify(data));
- localStorage.setItem("employee_name",employee.value);
-}
+function change(i,d){qtys[i]=Math.max(0,(qtys[i]||0)+d);save();render();}
 
 function render(){
  const q=search.value.toLowerCase();
- let total=0;
- list.innerHTML="";
- products.forEach((p,i)=>{
+ let total=0,count=0;
+ list.innerHTML='';
+ data.forEach((p,i)=>{
+   if(cat!=='Все'&&p.cat!==cat)return;
    if(q && !p.name.toLowerCase().includes(q)) return;
-   const qty=(window.qtys?.[i]||0);
-   total+=qty*p.bonus;
-   list.innerHTML+=`
-   <div class="card">
-    <div class="name">${p.name}</div>
-    <div class="small">Бонус: ${p.bonus} ₽</div>
-    <div class="row">
-      <button class="btn" onclick="change(${i},-1)">−</button>
-      <div class="qty">${qty}</div>
-      <button class="btn" onclick="change(${i},1)">+</button>
-    </div>
-    <div class="row"><b>Премия</b><b>${(qty*p.bonus).toFixed(2)} ₽</b></div>
+   let qty=qtys[i]||0;
+   total+=qty*p.bonus; count+=qty;
+   list.innerHTML+=`<div class="card ${p.bonus>=700?'hi':''}">
+   <div><b>${p.name}</b></div>
+   <div>${p.cat} • Бонус ${p.bonus} ₽</div>
+   <div class="row" style="margin-top:10px">
+    <button class="btn" onclick="change(${i},-1)">−</button>
+    <div class="qty">${qty}</div>
+    <button class="btn" onclick="change(${i},1)">+</button>
+   </div>
+   <div class="row"><span>Премия</span><b>${(qty*p.bonus).toFixed(0)} ₽</b></div>
    </div>`;
  });
- document.getElementById("total").innerHTML=total.toFixed(2)+" ₽";
- saveState();
+ totalEl=document.getElementById('total');
+ totalEl.textContent=total.toFixed(0)+' ₽';
+ stats.textContent=count+' шт';
 }
 
-window.qtys={};
+const cats=['Все',...new Set(data.map(x=>x.cat))];
+filters.innerHTML=cats.map(c=>`<button class="chip" onclick="cat='${c}';render()">${c}</button>`).join('');
 
-function saveState(){
- localStorage.setItem(key()+"_qtys",JSON.stringify(window.qtys));
- localStorage.setItem("employee_name",employee.value);
-}
-
-function loadState(){
- employee.value=localStorage.getItem("employee_name")||"";
- window.qtys=JSON.parse(localStorage.getItem(key()+"_qtys")||"{}");
- render();
-}
-
-function change(i,d){
- window.qtys[i]=Math.max(0,(window.qtys[i]||0)+d);
- render();
-}
-
-employee.oninput=()=>{saveState();};
-week.onchange=loadState;
 search.oninput=render;
-
-loadState();
-</script>
-</body>
-</html>
+employee.oninput=save;
+week.onchange=load;
+load();
+</script></body></html>
