@@ -3,708 +3,201 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Премия за неделю</title>
+<title>Калькулятор премии 2.0</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f4f4f4;margin:0}
-header{position:sticky;top:0;background:#fff;padding:15px;font-size:24px;font-weight:bold;box-shadow:0 1px 5px rgba(0,0,0,.1)}
-.wrap{padding:10px}
-.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px}
-.name{font-weight:bold;font-size:18px}
-.bonus{margin:6px 0;color:#555}
-.qty{width:120px;font-size:18px;padding:8px}
-.sum{float:right;font-size:22px;font-weight:bold;margin-top:8px}
+body{margin:0;background:#f5f6f8;font-family:-apple-system,BlinkMacSystemFont,Arial}
+.header{position:sticky;top:0;background:white;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.08);z-index:10}
+.total{font-size:34px;font-weight:700}
+.card{background:white;margin:10px;border-radius:16px;padding:14px;box-shadow:0 1px 5px rgba(0,0,0,.05)}
+.name{font-weight:700}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.btn{width:38px;height:38px;border:none;border-radius:10px;font-size:20px}
+.qty{min-width:40px;text-align:center;font-size:18px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin:6px 0}
+.small{color:#666}
 </style>
 </head>
 <body>
-<header>Итого: <span id="total">0.00</span></header>
-<div class="wrap">
-
-    <div class="card">
-      <div class="name">Mate X7</div>
-      <div class="bonus">Бонус: 2239.99</div>
-      <input type="number" min="0" value="0" data-bonus="2239.986" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Mate X7</div>
-      <div class="bonus">Бонус: 2239.99</div>
-      <input type="number" min="0" value="0" data-bonus="2239.986" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Mate X7</div>
-      <div class="bonus">Бонус: 2239.99</div>
-      <input type="number" min="0" value="0" data-bonus="2239.986" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI Mate XT</div>
-      <div class="bonus">Бонус: 2029.99</div>
-      <input type="number" min="0" value="0" data-bonus="2029.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI Mate XT</div>
-      <div class="bonus">Бонус: 2029.99</div>
-      <input type="number" min="0" value="0" data-bonus="2029.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">16/512GB Black</div>
-      <div class="bonus">Бонус: 1259.99</div>
-      <input type="number" min="0" value="0" data-bonus="1259.9859999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">16/512GB Gold</div>
-      <div class="bonus">Бонус: 1259.99</div>
-      <input type="number" min="0" value="0" data-bonus="1259.9859999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">16/512GB Green</div>
-      <div class="bonus">Бонус: 1259.99</div>
-      <input type="number" min="0" value="0" data-bonus="1259.9859999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">PDA Huawei Pura 80 Ultra 16/512 Bl</div>
-      <div class="bonus">Бонус: 1000.99</div>
-      <input type="number" min="0" value="0" data-bonus="1000.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">PDA Huawei Pura 80 Ultra 16/512 Gl</div>
-      <div class="bonus">Бонус: 1000.99</div>
-      <input type="number" min="0" value="0" data-bonus="1000.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI MateBook GT 14</div>
-      <div class="bonus">Бонус: 945.00</div>
-      <input type="number" min="0" value="0" data-bonus="944.9999999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad Pro 13.2 papermatte WIFI 12+512G Premium gold inbox keyboard</div>
-      <div class="bonus">Бонус: 895.99</div>
-      <input type="number" min="0" value="0" data-bonus="895.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI MateBook GT 14</div>
-      <div class="bonus">Бонус: 840.00</div>
-      <input type="number" min="0" value="0" data-bonus="840.0" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad Pro 13.2 WIFI 12+256G Black inbox keyboard</div>
-      <div class="bonus">Бонус: 818.99</div>
-      <input type="number" min="0" value="0" data-bonus="818.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name"> MatePad  Mini 12+256 AG (Paper Matte)</div>
-      <div class="bonus">Бонус: 811.99</div>
-      <input type="number" min="0" value="0" data-bonus="811.986" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad Mini 12+256 AG (Paper Matte)</div>
-      <div class="bonus">Бонус: 811.99</div>
-      <input type="number" min="0" value="0" data-bonus="811.986" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad Mini  8+256 CG </div>
-      <div class="bonus">Бонус: 713.99</div>
-      <input type="number" min="0" value="0" data-bonus="713.986" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI MateBook GT 14</div>
-      <div class="bonus">Бонус: 700.00</div>
-      <input type="number" min="0" value="0" data-bonus="700.0" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad Pro 12.2  12+512 wifi Green Papermatte inbox keyboard</div>
-      <div class="bonus">Бонус: 657.99</div>
-      <input type="number" min="0" value="0" data-bonus="657.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad Pro 12.2  12+512 wifi Black Papermatte inbox keyboard</div>
-      <div class="bonus">Бонус: 657.99</div>
-      <input type="number" min="0" value="0" data-bonus="657.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">PDA Huawei Pura 80 Pro 12/512 Bl</div>
-      <div class="bonus">Бонус: 643.99</div>
-      <input type="number" min="0" value="0" data-bonus="643.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">PDA Huawei Pura 80 Pro 12/512 R</div>
-      <div class="bonus">Бонус: 643.99</div>
-      <input type="number" min="0" value="0" data-bonus="643.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">PDA Huawei Pura 80 Pro 12/512 Wh</div>
-      <div class="bonus">Бонус: 643.99</div>
-      <input type="number" min="0" value="0" data-bonus="643.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Max  8+256</div>
-      <div class="bonus">Бонус: 577.48</div>
-      <input type="number" min="0" value="0" data-bonus="577.4825" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Max  8+256</div>
-      <div class="bonus">Бонус: 577.48</div>
-      <input type="number" min="0" value="0" data-bonus="577.4825" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Max  8+256</div>
-      <div class="bonus">Бонус: 577.48</div>
-      <input type="number" min="0" value="0" data-bonus="577.4825" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad Pro 12.2  12+256 wifi Black  inbox keyboard</div>
-      <div class="bonus">Бонус: 573.99</div>
-      <input type="number" min="0" value="0" data-bonus="573.9929999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH Ultimate 2</div>
-      <div class="bonus">Бонус: 569.79</div>
-      <input type="number" min="0" value="0" data-bonus="569.793" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH Ultimate 2 March-B39</div>
-      <div class="bonus">Бонус: 569.79</div>
-      <input type="number" min="0" value="0" data-bonus="569.793" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch 5 42mm</div>
-      <div class="bonus">Бонус: 462.69</div>
-      <input type="number" min="0" value="0" data-bonus="462.693" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH Ultimate 2</div>
-      <div class="bonus">Бонус: 462.69</div>
-      <input type="number" min="0" value="0" data-bonus="462.693" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">PDA Huawei Pura 80 12/256GB Bl </div>
-      <div class="bonus">Бонус: 433.99</div>
-      <input type="number" min="0" value="0" data-bonus="433.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">PDA Huawei Pura 80 12/256GB Gld </div>
-      <div class="bonus">Бонус: 433.99</div>
-      <input type="number" min="0" value="0" data-bonus="433.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">PDA Huawei Pura 80 12/256GB Wh </div>
-      <div class="bonus">Бонус: 433.99</div>
-      <input type="number" min="0" value="0" data-bonus="433.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Pro</div>
-      <div class="bonus">Бонус: 349.99</div>
-      <input type="number" min="0" value="0" data-bonus="349.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Pro</div>
-      <div class="bonus">Бонус: 349.99</div>
-      <input type="number" min="0" value="0" data-bonus="349.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Pro</div>
-      <div class="bonus">Бонус: 349.99</div>
-      <input type="number" min="0" value="0" data-bonus="349.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Pro</div>
-      <div class="bonus">Бонус: 349.99</div>
-      <input type="number" min="0" value="0" data-bonus="349.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch 5 42mm</div>
-      <div class="bonus">Бонус: 320.59</div>
-      <input type="number" min="0" value="0" data-bonus="320.59299999999996" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch 5 46mm</div>
-      <div class="bonus">Бонус: 320.59</div>
-      <input type="number" min="0" value="0" data-bonus="320.59299999999996" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch 5 46mm</div>
-      <div class="bonus">Бонус: 320.59</div>
-      <input type="number" min="0" value="0" data-bonus="320.59299999999996" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Pro</div>
-      <div class="bonus">Бонус: 314.99</div>
-      <input type="number" min="0" value="0" data-bonus="314.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Pro</div>
-      <div class="bonus">Бонус: 314.99</div>
-      <input type="number" min="0" value="0" data-bonus="314.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Pro</div>
-      <div class="bonus">Бонус: 314.99</div>
-      <input type="number" min="0" value="0" data-bonus="314.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15 Pro</div>
-      <div class="bonus">Бонус: 314.99</div>
-      <input type="number" min="0" value="0" data-bonus="314.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15</div>
-      <div class="bonus">Бонус: 293.99</div>
-      <input type="number" min="0" value="0" data-bonus="293.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15</div>
-      <div class="bonus">Бонус: 293.99</div>
-      <input type="number" min="0" value="0" data-bonus="293.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15</div>
-      <div class="bonus">Бонус: 293.99</div>
-      <input type="number" min="0" value="0" data-bonus="293.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch 5 42mm</div>
-      <div class="bonus">Бонус: 284.89</div>
-      <input type="number" min="0" value="0" data-bonus="284.893" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch 5 42mm</div>
-      <div class="bonus">Бонус: 284.89</div>
-      <input type="number" min="0" value="0" data-bonus="284.893" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch 5 46mm</div>
-      <div class="bonus">Бонус: 284.89</div>
-      <input type="number" min="0" value="0" data-bonus="284.893" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 Titanium Strap</div>
-      <div class="bonus">Бонус: 284.89</div>
-      <input type="number" min="0" value="0" data-bonus="284.893" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH FIT 5 Pro Black Fluoroelastomer Strap</div>
-      <div class="bonus">Бонус: 272.99</div>
-      <input type="number" min="0" value="0" data-bonus="272.98949999999996" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH FIT 5 Pro White Fluoroelastomer Strap</div>
-      <div class="bonus">Бонус: 272.99</div>
-      <input type="number" min="0" value="0" data-bonus="272.98949999999996" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH FIT 5 Pro Gradient Orange Nylon Strap</div>
-      <div class="bonus">Бонус: 272.99</div>
-      <input type="number" min="0" value="0" data-bonus="272.98949999999996" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15</div>
-      <div class="bonus">Бонус: 258.99</div>
-      <input type="number" min="0" value="0" data-bonus="258.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15</div>
-      <div class="bonus">Бонус: 258.99</div>
-      <input type="number" min="0" value="0" data-bonus="258.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI nova 15</div>
-      <div class="bonus">Бонус: 258.99</div>
-      <input type="number" min="0" value="0" data-bonus="258.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Chitu-B19F</div>
-      <div class="bonus">Бонус: 223.99</div>
-      <input type="number" min="0" value="0" data-bonus="223.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Chitu-B19W</div>
-      <div class="bonus">Бонус: 223.99</div>
-      <input type="number" min="0" value="0" data-bonus="223.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Chitu-B19FB</div>
-      <div class="bonus">Бонус: 223.99</div>
-      <input type="number" min="0" value="0" data-bonus="223.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Chitu-B19D</div>
-      <div class="bonus">Бонус: 223.99</div>
-      <input type="number" min="0" value="0" data-bonus="223.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 Black Fluoroelastomer Strap</div>
-      <div class="bonus">Бонус: 213.49</div>
-      <input type="number" min="0" value="0" data-bonus="213.493" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 Brown Woven Strap (MKT Color)</div>
-      <div class="bonus">Бонус: 213.49</div>
-      <input type="number" min="0" value="0" data-bonus="213.493" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch D 2 Black Fluoroelastomer</div>
-      <div class="bonus">Бонус: 213.49</div>
-      <input type="number" min="0" value="0" data-bonus="213.493" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Watch D 2 White Composite</div>
-      <div class="bonus">Бонус: 213.49</div>
-      <input type="number" min="0" value="0" data-bonus="213.493" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH D2
-Blue Composite Leather Strap</div>
-      <div class="bonus">Бонус: 213.49</div>
-      <input type="number" min="0" value="0" data-bonus="213.493" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">DoraP-L10</div>
-      <div class="bonus">Бонус: 209.99</div>
-      <input type="number" min="0" value="0" data-bonus="209.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">DoraP-L10</div>
-      <div class="bonus">Бонус: 209.99</div>
-      <input type="number" min="0" value="0" data-bonus="209.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH FIT 5 Black Fluoroelastomer Strap</div>
-      <div class="bonus">Бонус: 199.49</div>
-      <input type="number" min="0" value="0" data-bonus="199.4895" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH FIT 5 White Fluoroelastomer Strap</div>
-      <div class="bonus">Бонус: 199.49</div>
-      <input type="number" min="0" value="0" data-bonus="199.4895" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH FIT 5 Purple Fluoroelastomer Strap</div>
-      <div class="bonus">Бонус: 199.49</div>
-      <input type="number" min="0" value="0" data-bonus="199.4895" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH FIT 5 Green Fluoroelastomer Strap</div>
-      <div class="bonus">Бонус: 199.49</div>
-      <input type="number" min="0" value="0" data-bonus="199.4895" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WATCH FIT 5 Silver Green-Grey Nylon Strap</div>
-      <div class="bonus">Бонус: 199.49</div>
-      <input type="number" min="0" value="0" data-bonus="199.4895" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 12X 12+256G papermatte +Keyboard</div>
-      <div class="bonus">Бонус: 196.00</div>
-      <input type="number" min="0" value="0" data-bonus="195.9965" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 12X 12+256G papermatte +Keyboard</div>
-      <div class="bonus">Бонус: 196.00</div>
-      <input type="number" min="0" value="0" data-bonus="195.9965" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 12X 12+256G +Keyboard</div>
-      <div class="bonus">Бонус: 178.50</div>
-      <input type="number" min="0" value="0" data-bonus="178.4965" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 Gold Milanese Strap</div>
-      <div class="bonus">Бонус: 178.49</div>
-      <input type="number" min="0" value="0" data-bonus="178.493" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WiFi Mesh X3pro Suite</div>
-      <div class="bonus">Бонус: 174.99</div>
-      <input type="number" min="0" value="0" data-bonus="174.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 Black Fluoroelastomer Strap</div>
-      <div class="bonus">Бонус: 163.79</div>
-      <input type="number" min="0" value="0" data-bonus="163.793" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 Grey Composite Leather Strap</div>
-      <div class="bonus">Бонус: 163.79</div>
-      <input type="number" min="0" value="0" data-bonus="163.793" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 Green Woven Strap （MKT Color）</div>
-      <div class="bonus">Бонус: 163.79</div>
-      <input type="number" min="0" value="0" data-bonus="163.793" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 Purple Fluoroelastomer Strap (MKT Color)</div>
-      <div class="bonus">Бонус: 163.79</div>
-      <input type="number" min="0" value="0" data-bonus="163.793" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">WATCH GT 6 White Composite Leather Strap</div>
-      <div class="bonus">Бонус: 163.79</div>
-      <input type="number" min="0" value="0" data-bonus="163.793" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 11.5 S PaperMatte 12+256 wifi + keyboard 2026</div>
-      <div class="bonus">Бонус: 161.00</div>
-      <input type="number" min="0" value="0" data-bonus="160.9965" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 11.5 S PaperMatte 12+256 wifi + keyboard 2026</div>
-      <div class="bonus">Бонус: 161.00</div>
-      <input type="number" min="0" value="0" data-bonus="160.9965" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 11.5S 12+512G papermatte</div>
-      <div class="bonus">Бонус: 154.00</div>
-      <input type="number" min="0" value="0" data-bonus="153.9965" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Dora-L10</div>
-      <div class="bonus">Бонус: 153.99</div>
-      <input type="number" min="0" value="0" data-bonus="153.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">Dora-L10</div>
-      <div class="bonus">Бонус: 153.99</div>
-      <input type="number" min="0" value="0" data-bonus="153.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 11.5 S 12+256 wifi + keyboard 2026</div>
-      <div class="bonus">Бонус: 143.50</div>
-      <input type="number" min="0" value="0" data-bonus="143.4965" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 11.5 8+256G Papermatte+KB gray</div>
-      <div class="bonus">Бонус: 124.60</div>
-      <input type="number" min="0" value="0" data-bonus="124.59649999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 11.5 8+256G Papermatte+KB violet</div>
-      <div class="bonus">Бонус: 124.60</div>
-      <input type="number" min="0" value="0" data-bonus="124.59649999999999" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">HUAWEI WiFi Mesh X3pro Suite</div>
-      <div class="bonus">Бонус: 118.99</div>
-      <input type="number" min="0" value="0" data-bonus="118.993" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 11.5 S PaperMatte 12+512 </div>
-      <div class="bonus">Бонус: 108.50</div>
-      <input type="number" min="0" value="0" data-bonus="108.4965" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
-    <div class="card">
-      <div class="name">MatePad 11.5 8+256G Papermatte</div>
-      <div class="bonus">Бонус: 106.75</div>
-      <input type="number" min="0" value="0" data-bonus="106.7465" class="qty">
-      <div class="sum">0.00</div>
-    </div>
-    
+<div class="header">
+<div class="total" id="total">0 ₽</div>
+<input id="employee" placeholder="Имя сотрудника">
+<select id="week">
+<option>Неделя 1</option>
+<option>Неделя 2</option>
+<option>Неделя 3</option>
+<option>Неделя 4</option>
+<option>Неделя 5</option>
+</select>
+<input id="search" placeholder="Поиск модели">
 </div>
 
+<div id="list"></div>
+
 <script>
-function recalc(){
- let total=0;
- document.querySelectorAll('.qty').forEach(input=>{
-   const qty=parseFloat(input.value)||0;
-   const bonus=parseFloat(input.dataset.bonus)||0;
-   const sum=qty*bonus;
-   input.parentElement.querySelector('.sum').textContent=sum.toFixed(2);
-   total+=sum;
- });
- document.getElementById('total').textContent=total.toFixed(2);
+const products=[
+{name:'Mate X7', bonus:2239.99},
+{name:'Mate X7', bonus:2239.99},
+{name:'Mate X7', bonus:2239.99},
+{name:'HUAWEI Mate XT', bonus:2029.99},
+{name:'HUAWEI Mate XT', bonus:2029.99},
+{name:'16/512GB Black', bonus:1259.99},
+{name:'16/512GB Gold', bonus:1259.99},
+{name:'16/512GB Green', bonus:1259.99},
+{name:'PDA Huawei Pura 80 Ultra 16/512 Bl', bonus:1000.99},
+{name:'PDA Huawei Pura 80 Ultra 16/512 Gl', bonus:1000.99},
+{name:'HUAWEI MateBook GT 14', bonus:945.0},
+{name:'MatePad Pro 13.2 papermatte WIFI 12+512G Premium gold inbox keyboard', bonus:895.99},
+{name:'HUAWEI MateBook GT 14', bonus:840.0},
+{name:'MatePad Pro 13.2 WIFI 12+256G Black inbox keyboard', bonus:818.99},
+{name:' MatePad  Mini 12+256 AG (Paper Matte)', bonus:811.99},
+{name:'MatePad Mini 12+256 AG (Paper Matte)', bonus:811.99},
+{name:'MatePad Mini  8+256 CG ', bonus:713.99},
+{name:'HUAWEI MateBook GT 14', bonus:700.0},
+{name:'MatePad Pro 12.2  12+512 wifi Green Papermatte inbox keyboard', bonus:657.99},
+{name:'MatePad Pro 12.2  12+512 wifi Black Papermatte inbox keyboard', bonus:657.99},
+{name:'PDA Huawei Pura 80 Pro 12/512 Bl', bonus:643.99},
+{name:'PDA Huawei Pura 80 Pro 12/512 R', bonus:643.99},
+{name:'PDA Huawei Pura 80 Pro 12/512 Wh', bonus:643.99},
+{name:'HUAWEI nova 15 Max  8+256', bonus:577.48},
+{name:'HUAWEI nova 15 Max  8+256', bonus:577.48},
+{name:'HUAWEI nova 15 Max  8+256', bonus:577.48},
+{name:'MatePad Pro 12.2  12+256 wifi Black  inbox keyboard', bonus:573.99},
+{name:'HUAWEI WATCH Ultimate 2', bonus:569.79},
+{name:'HUAWEI WATCH Ultimate 2 March-B39', bonus:569.79},
+{name:'Watch 5 42mm', bonus:462.69},
+{name:'HUAWEI WATCH Ultimate 2', bonus:462.69},
+{name:'PDA Huawei Pura 80 12/256GB Bl ', bonus:433.99},
+{name:'PDA Huawei Pura 80 12/256GB Gld ', bonus:433.99},
+{name:'PDA Huawei Pura 80 12/256GB Wh ', bonus:433.99},
+{name:'HUAWEI nova 15 Pro', bonus:349.99},
+{name:'HUAWEI nova 15 Pro', bonus:349.99},
+{name:'HUAWEI nova 15 Pro', bonus:349.99},
+{name:'HUAWEI nova 15 Pro', bonus:349.99},
+{name:'Watch 5 42mm', bonus:320.59},
+{name:'Watch 5 46mm', bonus:320.59},
+{name:'Watch 5 46mm', bonus:320.59},
+{name:'HUAWEI nova 15 Pro', bonus:314.99},
+{name:'HUAWEI nova 15 Pro', bonus:314.99},
+{name:'HUAWEI nova 15 Pro', bonus:314.99},
+{name:'HUAWEI nova 15 Pro', bonus:314.99},
+{name:'HUAWEI nova 15', bonus:293.99},
+{name:'HUAWEI nova 15', bonus:293.99},
+{name:'HUAWEI nova 15', bonus:293.99},
+{name:'Watch 5 42mm', bonus:284.89},
+{name:'Watch 5 42mm', bonus:284.89},
+{name:'Watch 5 46mm', bonus:284.89},
+{name:'WATCH GT 6 Titanium Strap', bonus:284.89},
+{name:'HUAWEI WATCH FIT 5 Pro Black Fluoroelastomer Strap', bonus:272.99},
+{name:'HUAWEI WATCH FIT 5 Pro White Fluoroelastomer Strap', bonus:272.99},
+{name:'HUAWEI WATCH FIT 5 Pro Gradient Orange Nylon Strap', bonus:272.99},
+{name:'HUAWEI nova 15', bonus:258.99},
+{name:'HUAWEI nova 15', bonus:258.99},
+{name:'HUAWEI nova 15', bonus:258.99},
+{name:'Chitu-B19F', bonus:223.99},
+{name:'Chitu-B19W', bonus:223.99},
+{name:'Chitu-B19FB', bonus:223.99},
+{name:'Chitu-B19D', bonus:223.99},
+{name:'WATCH GT 6 Black Fluoroelastomer Strap', bonus:213.49},
+{name:'WATCH GT 6 Brown Woven Strap (MKT Color)', bonus:213.49},
+{name:'Watch D 2 Black Fluoroelastomer', bonus:213.49},
+{name:'Watch D 2 White Composite', bonus:213.49},
+{name:'WATCH D2\nBlue Composite Leather Strap', bonus:213.49},
+{name:'DoraP-L10', bonus:209.99},
+{name:'DoraP-L10', bonus:209.99},
+{name:'HUAWEI WATCH FIT 5 Black Fluoroelastomer Strap', bonus:199.49},
+{name:'HUAWEI WATCH FIT 5 White Fluoroelastomer Strap', bonus:199.49},
+{name:'HUAWEI WATCH FIT 5 Purple Fluoroelastomer Strap', bonus:199.49},
+{name:'HUAWEI WATCH FIT 5 Green Fluoroelastomer Strap', bonus:199.49},
+{name:'HUAWEI WATCH FIT 5 Silver Green-Grey Nylon Strap', bonus:199.49},
+{name:'MatePad 12X 12+256G papermatte +Keyboard', bonus:196.0},
+{name:'MatePad 12X 12+256G papermatte +Keyboard', bonus:196.0},
+{name:'MatePad 12X 12+256G +Keyboard', bonus:178.5},
+{name:'WATCH GT 6 Gold Milanese Strap', bonus:178.49},
+{name:'HUAWEI WiFi Mesh X3pro Suite', bonus:174.99},
+{name:'WATCH GT 6 Black Fluoroelastomer Strap', bonus:163.79},
+{name:'WATCH GT 6 Grey Composite Leather Strap', bonus:163.79},
+{name:'WATCH GT 6 Green Woven Strap （MKT Color）', bonus:163.79},
+{name:'WATCH GT 6 Purple Fluoroelastomer Strap (MKT Color)', bonus:163.79},
+{name:'WATCH GT 6 White Composite Leather Strap', bonus:163.79},
+{name:'MatePad 11.5 S PaperMatte 12+256 wifi + keyboard 2026', bonus:161.0},
+{name:'MatePad 11.5 S PaperMatte 12+256 wifi + keyboard 2026', bonus:161.0},
+{name:'MatePad 11.5S 12+512G papermatte', bonus:154.0},
+{name:'Dora-L10', bonus:153.99},
+{name:'Dora-L10', bonus:153.99},
+{name:'MatePad 11.5 S 12+256 wifi + keyboard 2026', bonus:143.5},
+{name:'MatePad 11.5 8+256G Papermatte+KB gray', bonus:124.6},
+{name:'MatePad 11.5 8+256G Papermatte+KB violet', bonus:124.6},
+{name:'HUAWEI WiFi Mesh X3pro Suite', bonus:118.99},
+{name:'MatePad 11.5 S PaperMatte 12+512 ', bonus:108.5},
+{name:'MatePad 11.5 8+256G Papermatte', bonus:106.75}
+];
+
+function key() {
+ return "bonus_" + (employee.value||"employee") + "_" + week.value;
 }
 
-document.querySelectorAll('.qty').forEach(el=>{
- el.addEventListener('input', recalc);
-});
+function load(){
+ const data=JSON.parse(localStorage.getItem(key())||"{}");
+ document.querySelectorAll("[data-id]").forEach(el=>{
+   el.dataset.qty=data[el.dataset.id]||0;
+ });
+ render();
+}
 
-recalc();
+function save(){
+ let data={};
+ document.querySelectorAll("[data-id]").forEach(el=>data[el.dataset.id]=+el.dataset.qty);
+ localStorage.setItem(key(),JSON.stringify(data));
+ localStorage.setItem("employee_name",employee.value);
+}
+
+function render(){
+ const q=search.value.toLowerCase();
+ let total=0;
+ list.innerHTML="";
+ products.forEach((p,i)=>{
+   if(q && !p.name.toLowerCase().includes(q)) return;
+   const qty=(window.qtys?.[i]||0);
+   total+=qty*p.bonus;
+   list.innerHTML+=`
+   <div class="card">
+    <div class="name">${p.name}</div>
+    <div class="small">Бонус: ${p.bonus} ₽</div>
+    <div class="row">
+      <button class="btn" onclick="change(${i},-1)">−</button>
+      <div class="qty">${qty}</div>
+      <button class="btn" onclick="change(${i},1)">+</button>
+    </div>
+    <div class="row"><b>Премия</b><b>${(qty*p.bonus).toFixed(2)} ₽</b></div>
+   </div>`;
+ });
+ document.getElementById("total").innerHTML=total.toFixed(2)+" ₽";
+ saveState();
+}
+
+window.qtys={};
+
+function saveState(){
+ localStorage.setItem(key()+"_qtys",JSON.stringify(window.qtys));
+ localStorage.setItem("employee_name",employee.value);
+}
+
+function loadState(){
+ employee.value=localStorage.getItem("employee_name")||"";
+ window.qtys=JSON.parse(localStorage.getItem(key()+"_qtys")||"{}");
+ render();
+}
+
+function change(i,d){
+ window.qtys[i]=Math.max(0,(window.qtys[i]||0)+d);
+ render();
+}
+
+employee.oninput=()=>{saveState();};
+week.onchange=loadState;
+search.oninput=render;
+
+loadState();
 </script>
 </body>
 </html>
